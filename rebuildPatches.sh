@@ -36,5 +36,7 @@ function savePatches {
 if [ "$1" == "clean" ]; then
 	rm -rf *-Patches
 fi
-savePatches Bukkit Spigot-API
-savePatches CraftBukkit Spigot-Server
+# savePatches Bukkit Spigot-API
+# savePatches CraftBukkit Spigot-Server
+# savePatches Spigot-API Rob-Spigot-API
+savePatches Spigot-Server Rob-Spigot-Server

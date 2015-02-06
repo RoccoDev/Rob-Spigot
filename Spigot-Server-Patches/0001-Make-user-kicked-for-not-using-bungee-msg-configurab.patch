@@ -1,0 +1,42 @@
+From 2e87acf7baef31eef3cdc5388b78a8b0ab55f59c Mon Sep 17 00:00:00 2001
+From: roblabla <robinlambertz+dev@gmail.com>
+Date: Fri, 6 Feb 2015 11:33:30 +0000
+Subject: [PATCH] Make user kicked for not using bungee msg configurable
+
+
+diff --git a/src/main/java/net/minecraft/server/HandshakeListener.java b/src/main/java/net/minecraft/server/HandshakeListener.java
+index c9a7839..1d42179 100644
+--- a/src/main/java/net/minecraft/server/HandshakeListener.java
++++ b/src/main/java/net/minecraft/server/HandshakeListener.java
+@@ -81,7 +81,7 @@ public class HandshakeListener implements PacketHandshakingInListener {
+                         b.spoofedUUID = com.mojang.util.UUIDTypeAdapter.fromString( split[2] );
+                     } else
+                     {
+-                        chatcomponenttext = new ChatComponentText("If you wish to use IP forwarding, please enable it in your BungeeCord config as well!");
++                        chatcomponenttext = new ChatComponentText( org.spigotmc.SpigotConfig.userNotUsingBungee );
+                         this.b.handle(new PacketLoginOutDisconnect(chatcomponenttext));
+                         this.b.close(chatcomponenttext);
+                         return;
+diff --git a/src/main/java/org/spigotmc/SpigotConfig.java b/src/main/java/org/spigotmc/SpigotConfig.java
+index a8140a5..4f4bbdb 100644
+--- a/src/main/java/org/spigotmc/SpigotConfig.java
++++ b/src/main/java/org/spigotmc/SpigotConfig.java
+@@ -187,6 +187,7 @@ public class SpigotConfig
+     public static String whitelistMessage;
+     public static String unknownCommandMessage;
+     public static String serverFullMessage;
++    public static String userNotUsingBungee;
+     public static String outdatedClientMessage = "Outdated client! Please use {0}";
+     public static String outdatedServerMessage = "Outdated server! I\'m still on {0}";
+     private static String transform(String s)
+@@ -203,6 +204,7 @@ public class SpigotConfig
+ 
+         whitelistMessage = transform( getString( "messages.whitelist", "You are not whitelisted on this server!" ) );
+         unknownCommandMessage = transform( getString( "messages.unknown-command", "Unknown command. Type \"/help\" for help." ) );
++        userNotUsingBungee = transform( getString( "messages.user-not-using-bungee", "If you wish to use IP forwarding, please enable it in your BungeeCord config as well!" ) );
+         serverFullMessage = transform( getString( "messages.server-full", "The server is full!" ) );
+         outdatedClientMessage = transform( getString( "messages.outdated-client", outdatedClientMessage ) );
+         outdatedServerMessage = transform( getString( "messages.outdated-server", outdatedServerMessage ) );
+-- 
+2.2.2
+
